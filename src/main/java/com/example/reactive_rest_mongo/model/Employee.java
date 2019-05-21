@@ -9,11 +9,14 @@ public class Employee {
     private String id;
     private String name;
     private long salary;
-
-    public Employee(String id, String name, long salary) {
+    private int age;
+    private int experience;
+    public Employee(String id, String name, long salary, int age, int experience) {
         this.id = id;
         this.name = name;
         this.salary = salary;
+        this.age = age;
+        this.experience=experience;
     }
 
     public Employee()
@@ -31,6 +34,22 @@ public class Employee {
 
     public long getSalary() {
         return salary;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public int getExperience() {
+        return experience;
+    }
+
+    public void setExperience(int experience) {
+        this.experience = experience;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public void setId(String id) {
@@ -51,6 +70,8 @@ public class Employee {
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", salary=" + salary +
+                ", age=" + age +
+                ", experience=" + experience +
                 '}';
     }
 }

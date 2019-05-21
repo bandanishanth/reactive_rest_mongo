@@ -18,10 +18,10 @@ public class ReactiveRestMongoApplication {
           employeeRepository.deleteAll()
                   .subscribe(null ,null, () -> {
 
-                      Stream.of(new Employee(UUID.randomUUID().toString(),"Peter",2300L),
-                              new Employee(UUID.randomUUID().toString(),"Sam",1300L),
-                              new Employee(UUID.randomUUID().toString(),"Ryan",2000L),
-                              new Employee(UUID.randomUUID().toString(),"Chris",53000L)
+                      Stream.of(new Employee(UUID.randomUUID().toString(),"Peter",2300L, 23,5),
+                              new Employee(UUID.randomUUID().toString(),"Sam",1300L, 24,6),
+                              new Employee(UUID.randomUUID().toString(),"Ryan",2000L, 25,7),
+                              new Employee(UUID.randomUUID().toString(),"Chris",53000L, 26,8)
                       )
                               .forEach(employee -> {
                                  employeeRepository.save(employee)
