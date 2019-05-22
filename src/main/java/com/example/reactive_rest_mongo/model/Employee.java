@@ -3,7 +3,21 @@ package com.example.reactive_rest_mongo.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
+/*
+IMPORTANT NOTE:
+
+In Order for some of the REACTIVE MONGO OPERATIONS TO WORK - it is necessary to convert the existing collection to a capped collection.
+
+PROCEDURE:
+Connect to Mongo Database using Mongo Shell and run command:   db.runCommand( { convertToCapped: COLLECTION_NAME , size: DESIRED_SIZE } ) .
+
+IT IS COMPULSORY TO SPECIFY SIZE IN THE COMMAND.
+
+Only then will the reactive operations work on the tailable cursor.
+
+Reference: https://docs.mongodb.com/manual/core/tailable-cursors/.
+ */
+@Document(collection = "Employees")
 public class Employee {
     @Id
     private String id;

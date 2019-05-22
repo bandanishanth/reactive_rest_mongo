@@ -12,6 +12,7 @@ import java.util.stream.Stream;
 
 @SpringBootApplication
 public class ReactiveRestMongoApplication {
+    /*Command Line Runner to Initially insert a few records into the collection*/
     @Bean
     CommandLineRunner employees(EmployeeRepository employeeRepository){
         return args -> {

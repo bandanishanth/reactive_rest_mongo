@@ -2,6 +2,16 @@ package com.example.reactive_rest_mongo.model;
 
 import java.util.Date;
 
+/*
+* EmployeeEvent = Employee + Date
+*
+* This Class is used to demonstrsate the reactive nature of This application.
+*
+* We use this class in:
+* 1)/{id}/events
+* 2)/findByNameAndAge/{name}/{age}
+*
+* */
 public class EmployeeEvent {
 
     private Employee employee;

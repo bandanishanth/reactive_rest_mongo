@@ -53,4 +53,33 @@ public class EmployeeResource {
                             .map(Tuple2::getT2);
                 });
     }
+
+    /*
+    NOTE:
+
+    Rule:
+    Case -1) Conversion of same type i.e Flux<Class-1> to Flux<Class2> needs only 'flatMap'
+    Case -2) Conversion from Mono<Class-1> to Flux<Class-2> requires 'flatMapMany'. (One to Many Conversion).
+
+    Example:
+    Case1:
+    'findByNameAndAge' method in EmployeeRepository class returns : Flux<Employee>
+    We convert that flux to Flux<EmployeeEvent> using flatMap. Since we are converting Flux to Flux we only need 'flatMap'.
+
+    In the above example we findById returns a Mono<Employee>. To convert it into Flux<EmployeeEven> we use flatMapMany.
+     */
+    @GetMapping(value = "findByNameAndAge/{name}/{age}",produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<EmployeeEvent> getByNameAndAge(@PathVariable("age") final int empAge, @PathVariable("name") String empName)
+    {
+//        Query query = new Query();
+//        query.addCriteria(Criteria.where("name").is(name));
+//        query.addCriteria(Criteria.where("age").is(age));
+        return employeeRepository.findByNameEqualsAndAgeEquals(empName,empAge)
+                .flatMap(employee ->{
+                    Flux<EmployeeEvent> employeeEventFlux = Flux.fromStream(
+                            Stream.generate( ()-> new EmployeeEvent(employee,new Date()))
+                    );
+                    return employeeEventFlux;
+                });
+    }
 }
