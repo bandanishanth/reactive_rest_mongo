@@ -71,9 +71,6 @@ public class EmployeeResource {
     @GetMapping(value = "findByNameAndAge/{name}/{age}",produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<EmployeeEvent> getByNameAndAge(@PathVariable("age") final int empAge, @PathVariable("name") String empName)
     {
-//        Query query = new Query();
-//        query.addCriteria(Criteria.where("name").is(name));
-//        query.addCriteria(Criteria.where("age").is(age));
         return employeeRepository.findByNameEqualsAndAgeEquals(empName,empAge)
                 .flatMap(employee ->{
                     Flux<EmployeeEvent> employeeEventFlux = Flux.fromStream(
@@ -81,5 +78,11 @@ public class EmployeeResource {
                     );
                     return employeeEventFlux;
                 });
+    }
+
+    @GetMapping(value="/hello")
+    public String message()
+    {
+        return "Hello!, Spring";
     }
 }
